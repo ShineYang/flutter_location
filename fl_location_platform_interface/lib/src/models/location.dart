@@ -7,13 +7,14 @@ class Location {
   final double longitude;
 
   /// The accuracy of the location.
-  final double accuracy;
+  final double horizontalAccuracy;
+  final double verticalAccuracy;
 
   /// The altitude of the location.
   final double altitude;
 
   /// The angle in the direction the device is moving.
-  final double heading;
+  final double course;
 
   /// The movement speed of the device.
   final double speed;
@@ -34,9 +35,10 @@ class Location {
   const Location({
     required this.latitude,
     required this.longitude,
-    required this.accuracy,
+    required this.horizontalAccuracy,
+    required this.verticalAccuracy,
     required this.altitude,
-    required this.heading,
+    required this.course,
     required this.speed,
     required this.speedAccuracy,
     required this.millisecondsSinceEpoch,
@@ -52,7 +54,7 @@ class Location {
     if (lon == null) throw ArgumentError.notNull('longitude');
 
     final double? millisecondsSinceEpoch =
-        double.tryParse(json['millisecondsSinceEpoch'].toString());
+    double.tryParse(json['millisecondsSinceEpoch'].toString());
     final DateTime timestamp = millisecondsSinceEpoch == null
         ? DateTime.now()
         : DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch.toInt());
@@ -60,13 +62,14 @@ class Location {
     return Location(
       latitude: lat,
       longitude: lon,
-      accuracy: double.tryParse(json['accuracy'].toString()) ?? 0.0,
+      horizontalAccuracy: double.tryParse(json['horizontalAccuracy'].toString()) ?? 0.0,
+      verticalAccuracy: double.tryParse(json['verticalAccuracy'].toString()) ?? 0.0,
       altitude: double.tryParse(json['altitude'].toString()) ?? 0.0,
-      heading: double.tryParse(json['heading'].toString()) ?? 0.0,
+      course: double.tryParse(json['course'].toString()) ?? 0.0,
       speed: double.tryParse(json['speed'].toString()) ?? 0.0,
       speedAccuracy: double.tryParse(json['speedAccuracy'].toString()) ?? 0.0,
       millisecondsSinceEpoch:
-          millisecondsSinceEpoch ?? timestamp.millisecondsSinceEpoch.toDouble(),
+      millisecondsSinceEpoch ?? timestamp.millisecondsSinceEpoch.toDouble(),
       timestamp: timestamp,
       isMock: json['isMock'] ?? false,
     );
@@ -77,9 +80,9 @@ class Location {
     return {
       'latitude': latitude,
       'longitude': longitude,
-      'accuracy': accuracy,
-      'altitude': altitude,
-      'heading': heading,
+      'horizontalAccuracy': horizontalAccuracy,
+      'verticalAccuracy': verticalAccuracy,
+      'course': course,
       'speed': speed,
       'speedAccuracy': speedAccuracy,
       'millisecondsSinceEpoch': millisecondsSinceEpoch,
@@ -94,24 +97,26 @@ class Location {
   @override
   bool operator ==(Object other) =>
       other is Location &&
-      latitude == other.latitude &&
-      longitude == other.longitude &&
-      accuracy == other.accuracy &&
-      altitude == other.altitude &&
-      heading == other.heading &&
-      speed == other.speed &&
-      speedAccuracy == other.speedAccuracy &&
-      millisecondsSinceEpoch == other.millisecondsSinceEpoch &&
-      timestamp == other.timestamp &&
-      isMock == other.isMock;
+          latitude == other.latitude &&
+          longitude == other.longitude &&
+          horizontalAccuracy == other.horizontalAccuracy &&
+          verticalAccuracy == other.verticalAccuracy &&
+          altitude == other.altitude &&
+          course == other.course &&
+          speed == other.speed &&
+          speedAccuracy == other.speedAccuracy &&
+          millisecondsSinceEpoch == other.millisecondsSinceEpoch &&
+          timestamp == other.timestamp &&
+          isMock == other.isMock;
 
   @override
   int get hashCode =>
       latitude.hashCode ^
       longitude.hashCode ^
-      accuracy.hashCode ^
+      horizontalAccuracy.hashCode ^
+      verticalAccuracy.hashCode ^
       altitude.hashCode ^
-      heading.hashCode ^
+      course.hashCode ^
       speed.hashCode ^
       speedAccuracy.hashCode ^
       millisecondsSinceEpoch.hashCode ^
