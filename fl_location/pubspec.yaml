@@ -28,5 +28,3 @@ flutter:
         pluginClass: FlLocationPlugin
       ios:
         pluginClass: FlLocationPlugin
-      web:
-        default_package: fl_location_web
