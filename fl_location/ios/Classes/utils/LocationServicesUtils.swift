@@ -9,7 +9,7 @@ import CoreLocation
 import Foundation
 
 class LocationServicesUtils {
-  static func checkLocationServicesStatus() async -> LocationServicesStatus {
+  static func checkLocationServicesStatus() -> LocationServicesStatus {
       if CLLocationManager.locationServicesEnabled() {
         return LocationServicesStatus.ENABLED
         } else {
