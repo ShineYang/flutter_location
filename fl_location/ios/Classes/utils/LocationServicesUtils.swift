@@ -10,10 +10,12 @@ import Foundation
 
 class LocationServicesUtils {
   static func checkLocationServicesStatus() -> LocationServicesStatus {
-    if CLLocationManager.locationServicesEnabled() {
-      return LocationServicesStatus.ENABLED
-    } else {
-      return LocationServicesStatus.DISABLED
-    }
+      DispatchQueue.global().async {
+          if CLLocationManager.locationServicesEnabled() {
+            return LocationServicesStatus.ENABLED
+          } else {
+            return LocationServicesStatus.DISABLED
+          }
+      }
   }
 }
