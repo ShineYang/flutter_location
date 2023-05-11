@@ -9,13 +9,11 @@ import CoreLocation
 import Foundation
 
 class LocationServicesUtils {
-  static func checkLocationServicesStatus() -> LocationServicesStatus {
-      DispatchQueue.global().async {
-          if CLLocationManager.locationServicesEnabled() {
-            return LocationServicesStatus.ENABLED
-          } else {
-            return LocationServicesStatus.DISABLED
-          }
+  static func checkLocationServicesStatus() async -> LocationServicesStatus {
+      if CLLocationManager.locationServicesEnabled() {
+        return LocationServicesStatus.ENABLED
+        } else {
+        return LocationServicesStatus.DISABLED
       }
   }
 }
